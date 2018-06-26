@@ -1,0 +1,60 @@
+version: '3'
+services:
+    php:
+        volumes:
+            - './:/usr/share/nginx/html'
+        environment:
+            - 'PHP_EXTENSIONS=intl,opcache'
+        image: 'okty/php:7.2'
+
+    nginx:
+        ports:
+            - '8080:80'
+        volumes:
+            - './:/usr/share/nginx/html'
+        environment:
+            - MAX_UPLOAD_SIZE=2M
+            - PHP_CONTAINER_ID=php
+            - INDEX_SUBFOLDER=public
+        image: 'okty/nginx:1.14'
+
+    hub:
+        image: elgalu/selenium
+        volumes:
+          - /dev/shm:/dev/shm
+        privileged: true
+        environment:
+          - SELENIUM_HUB_HOST=hub
+          - SELENIUM_HUB_PORT=4444
+          - GRID=true
+          - CHROME=false
+          - FIREFOX=false
+        depends_on:
+          - php
+
+    chrome:
+        image: elgalu/selenium
+        depends_on:
+          - hub
+        volumes:
+          - /dev/shm:/dev/shm
+        privileged: true
+        environment:
+          - NOVNC=true
+          - SELENIUM_HUB_HOST=hub
+          - SELENIUM_HUB_PORT=4444
+          - SELENIUM_NODE_HOST={{CONTAINER_IP}}
+          - SCREEN_WIDTH=1300
+          - SCREEN_HEIGHT=999
+          - VIDEO=false
+          - GRID=false
+          - CHROME=true
+          - FIREFOX=false
+
+        ports:
+          # VNC: See what's going on by connecting your VNC client to 0.0.0.0:5900
+          #- 5900:25900
+
+          # noVNC: See what's going on by hitting http://0.0.0.0:6080 in your browser
+          #        Important: http://127.0.0.1:6081 works but http://localhost:6081 doesn't
+          - 6080:26080

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demo Meetup Behat {% endblock %}
+
+{% block javascripts %}
+<script src="/js/cart.js?{{ random() }}"></script>
+{% endblock %}
+
+{% block body %}
+<style>
+    .home-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .home-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="home-wrapper">
+    <h1>Articles</h1>
+
+    Articles dispo :
+    <ul>
+        {% for article in articleList %}
+            <li class="article">
+                <span class="title">{{ article.title }}</span>
+                -
+                <span class="price">{{ article.price }} &euro;</span>
+                -
+                <button
+                        onclick="addToCart(this, '{{ article.id }}')"
+                        id="button_add_{{ article.id }}"
+                >Ajouter au pannier</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/cart">Voir pannier</a>
+</div>
+{% endblock %}

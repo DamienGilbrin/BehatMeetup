@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demo Meetup Behat {% endblock %}
+
+{% block javascripts %}
+<script src="/js/cart.js?{{ random() }}"></script>
+{% endblock %}
+
+{% block body %}
+<style>
+    .home-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .home-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="home-wrapper">
+    <a href="/">Home</a>
+    <h1>Mon pannier</h1>
+
+    Mes articles dans mon pannier :
+    {% if cart.productList is empty %}
+        <p class="emptyText"><i>Pannier vide !</i></p>
+    {%  else %}
+        <ul>
+            {% for product in cart.productList %}
+            <li class="article">
+                <span class="quantity">{{ product.count }}</span>
+                X
+                <span class="title">{{ product.details.title }}</span>
+                -
+                <span class="price">{{ product.details.price * product.count }} &euro;</span>
+                <button onclick="addToCart(this, '{{ product.details.id }}', true)">+</button>
+                <button onclick="removeToCart(this, '{{ product.details.id }}')">-</button>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr />
+        <p>
+            <b>
+                <span class="totalCount">{{ cart.count }}</span> produit(s)
+                - Total : <span class="totalAmount">{{ cart.price }}</span> &euro;
+            </b>
+        </p>
+    {% endif %}
+
+    <button id="emptyCart" onclick="document.location.href='/empty-cart'">Vider le pannier</button>
+
+</div>
+{% endblock %}
