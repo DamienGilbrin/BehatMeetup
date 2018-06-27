@@ -35,8 +35,8 @@ default:
 
                 MyBrowserStackChrome:
                     browser_stack:
-                        username: "XYZ"
-                        access_key: "ABC"
+                        username: "BROWSERSTACK / SETTING / AUTOMATE / USERNAME"
+                        access_key: "BROWSERSTACK / SETTING / AUTOMATE / ACCESS KEY"
                         capabilities: # https://www.browserstack.com/automate/capabilities
                             browser: "Chrome"
                             version: "63.0"
@@ -45,10 +45,11 @@ default:
                             browserstack-debug: true
                             project: "Demo Behat Browserstack Chrome"
                             resolution: "1600x1200"
+                            browserstack-tunnel: true
                 MyBrowserStackFirefox:
                     browser_stack:
-                        username: "XYZ"
-                        access_key: "ABC"
+                        username: "BROWSERSTACK / SETTING / AUTOMATE / USERNAME"
+                        access_key: "BROWSERSTACK / SETTING / AUTOMATE / ACCESS KEY"
                         capabilities:
                             browser: "Firefox"
                             version: "47"
@@ -57,4 +58,5 @@ default:
                             browserstack-debug: true
                             project: "Demo Behat Browserstack Firefox"
                             resolution: "1600x1200"
+                            browserstack-tunnel: true
 
