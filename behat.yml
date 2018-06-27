@@ -1,0 +1,60 @@
+default:
+    autoload:
+        '': "%paths.base%/tests/Behaviour/Bootstrap/Context/"
+    suites:
+        interface:
+            contexts:
+                - CartContext
+            paths:
+                - "%paths.base%/tests/Behaviour/Features/Interface"
+        service:
+            contexts:
+                - CartServiceContext
+            paths:
+                - "%paths.base%/tests/Behaviour/Features/Symfony"
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                class: App\Kernel
+                env: dev
+        Behat\MinkExtension:
+            base_url: http://nginx
+            goutte: ~
+            default_session: goutte
+            javascript_session: MyLocalChrome
+            browser_name: chrome
+            sessions:
+                MyLocalChrome:
+                    selenium2:
+                        browser: chrome
+                        wd_host: http://hub:4444/wd/hub
+                        capabilities:
+                            marionette: null
+                            version: ''
+                            locationContextEnabled: false
+
+                MyBrowserStackChrome:
+                    browser_stack:
+                        username: "XYZ"
+                        access_key: "ABC"
+                        capabilities: # https://www.browserstack.com/automate/capabilities
+                            browser: "Chrome"
+                            version: "63.0"
+                            os: "OS X"
+                            os_version: "High Sierra"
+                            browserstack-debug: true
+                            project: "Demo Behat Browserstack Chrome"
+                            resolution: "1600x1200"
+                MyBrowserStackFirefox:
+                    browser_stack:
+                        username: "XYZ"
+                        access_key: "ABC"
+                        capabilities:
+                            browser: "Firefox"
+                            version: "47"
+                            os: "Windows"
+                            os_version: "XP"
+                            browserstack-debug: true
+                            project: "Demo Behat Browserstack Firefox"
+                            resolution: "1600x1200"
+

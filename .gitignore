@@ -8,9 +8,6 @@
 .idea
 .docker/data
 .docker/data/*
-###> behat/symfony2-extension ###
-behat.yml
-###< behat/symfony2-extension ###
 
 ###> symfony/phpunit-bridge ###
 .phpunit
