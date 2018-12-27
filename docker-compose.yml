@@ -78,5 +78,5 @@ services:
           #- 5900:25900
 
           # noVNC: See what's going on by hitting http://0.0.0.0:6080 in your browser
-          #        Important: http://127.0.0.1:6081 works but http://localhost:6081 doesn't
+          #        Important: http://127.0.0.1:6080 works but http://localhost:6080 doesn't
           - 6080:26080
